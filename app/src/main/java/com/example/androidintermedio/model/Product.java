@@ -5,14 +5,22 @@ import java.io.Serializable;
 public class Product implements Serializable {
     Long id;
     String product_title;
-    String title_description ;
-    String title_thumbnail ;
+    String title_description;
+    String url_thumbnail;
 
-    public Product(long id, String title, String title_description, String title_thumbnail){
+    public Product(long id, String title, String title_description,
+                   String url_thumbnail) throws IllegalArgumentException {
         this.id = id;
         this.product_title = title;
         this.title_description = title_description;
-        this.title_thumbnail = title_thumbnail;
+        this.isValidUrl(url_thumbnail);
+        this.url_thumbnail = url_thumbnail;
+    }
+
+    private void isValidUrl(String url) throws IllegalArgumentException {
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            throw new IllegalArgumentException("Invalid URL: " + url);
+        }
     }
 
     public Long getId() {
@@ -27,8 +35,8 @@ public class Product implements Serializable {
         return title_description;
     }
 
-    public String getTitle_thumbnail() {
-        return title_thumbnail;
+    public String getUrl_thumbnail() {
+        return url_thumbnail;
     }
 
     public void setId(Long id) {
@@ -43,8 +51,8 @@ public class Product implements Serializable {
         this.title_description = title_description;
     }
 
-    public void setTitle_thumbnail(String title_thumbnail) {
-        this.title_thumbnail = title_thumbnail;
+    public void setUrl_thumbnail(String url_thumbnail) {
+        this.url_thumbnail = url_thumbnail;
     }
 }
 
